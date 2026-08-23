@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASKI Events</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<header class="top-header">
+
+    <!-- MENU BUTTON -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+
+    <!-- LOGO -->
+    <div class="site-logo">
+        <h1>Group 2 - ICT </h1>
+        <span>SCHOOL EVENTS</span>
+    </div>
+
+    <!-- SIDE MENU -->
+
+<nav id="sideMenu" class="side-menu">
+    <div class="menu-title">
+        <span>MENU</span>
+
+        <button class="close-btn" onclick="toggleMenu()">
+            ×
+        </button>
+    </div>
+
+    <a href="index.html" onclick="closeMenu()">
+        🏠 HOME
+    </a>
+
+    <a href="events.html" onclick="closeMenu()">
+        🎈EVENTS
+    </a>
+
+    <a href="registered.html" onclick="closeMenu()">
+        📋 REGISTERED LIST
+    </a>
+
+    <a href="coordinators.html" onclick="closeMenu()">
+        🔎 EVENT COORDINATORS
+    </a>
+
+     <a href="about.html" onclick="closeMenu()">
+        🧷 ABOUT
+    </a>
+
+</nav>
+
+</header>
+
+<main class="section">
+
+    <h2>Upcoming Events</h2>
+
+    <p class="subtitle">
+        Check the event details before registering.
+    </p>
+
+    <div id="eventContainer"
+         class="cards">
+
+        <p>Loading events...</p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>© 2026 ASKI School Event Registration</p>
+
+    <a href="about.html">Help & Information</a>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+fetch("events.json")
+
+.then(response => response.json())
+
+.then(events => {
+
+    let container =
+        document.getElementById("eventContainer");
+
+    container.innerHTML = "";
+    events.forEach(event => {
+        container.innerHTML += `
+
+            <div class="event-card">
+                <img src="${event.image}" class="event-image">
+                <div class="event-content">
+                <h3>${event.name}</h3>
+                <p>
+                    <b>📅 Date:</b>
+                    ${event.date}
+                </p>
+                <p>
+                    <b>⏰ Time:</b>
+                    ${event.time}
+                </p>
+                <p>
+                    <b>📍 Location:</b>
+                    ${event.location}
+                </p>
+                <p>
+                    <b>About:</b>
+                    ${event.description}
+                </p>
+                <p>
+                    <b>Bring:</b>
+                    ${event.requirements}
+                </p>
+                <a
+                    class="btn"
+                    href="register.html?event=${encodeURIComponent(event.name)}">
+                    Register
+                </a>
+            </div>
+            </div>
+        `;
+    });
+})
+
+.catch(error => {
+
+    document.getElementById("eventContainer").innerHTML =
+
+        "<p class='error-box'>Unable to load events.</p>";
+
+});
+
+</script>
+
+</body>
+</html>

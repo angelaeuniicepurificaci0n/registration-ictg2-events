@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ASKI Events | Home</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+<div class="site-banner">
+    <img src="images/2b27cf37-dbe0-4c41-95f7-f5b053ec66d8.jpg" class="header-image">
+    </div>
+<header class="top-header">
+    <!-- MENU BUTTON -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <!-- LOGO -->
+    <div class="site-logo">
+        <h1>Group 2 - ICT </h1>
+        <span>SCHOOL EVENTS</span>
+    </div>
+
+</header>
+<!-- SIDE MENU -->
+<nav id="sideMenu" class="side-menu">
+
+    <div class="menu-title">
+        <span>MENU</span>
+
+        <button class="close-btn" onclick="toggleMenu()">
+            ×
+        </button>
+    </div>
+
+    <a href="index.html" onclick="closeMenu()">
+        🏠 HOME
+    </a>
+
+    <a href="events.html" onclick="closeMenu()">
+        🎈EVENTS
+    </a>
+
+    <a href="registered.html" onclick="closeMenu()">
+        📋 REGISTERED LIST
+    </a>
+
+    <a href="coordinators.html" onclick="closeMenu()">
+        🔎 EVENT COORDINATORS
+    </a>
+
+     <a href="about.html" onclick="closeMenu()">
+        🧷 ABOUT
+    </a>
+
+</nav>
+
+
+<!-- DARK OVERLAY -->
+
+<div id="menuOverlay"
+     class="menu-overlay"
+     onclick="closeMenu()">
+</div>
+
+<main>
+
+    <section class="hero">
+
+        <div>
+            <h2>Welcome to our Event Registration Website!</h2>
+
+            <p>
+                Find school events, check their requirements,
+                and register easily online.
+            </p>
+
+            <a href="events.html" class="btn">
+                View Events
+            </a>
+        </div>
+
+    
+        <!-- SVG requirement -->
+        <svg width="180" height="180" viewBox="0 0 180 180">
+
+            <circle cx="90" cy="90" r="75"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="5"/>
+
+            <rect x="55" y="50"
+                  width="70"
+                  height="80"
+                  rx="8"
+                  fill="white"/>
+
+            <line x1="70" y1="75"
+                  x2="110" y2="75"
+                  stroke="#dd43b9"
+                  stroke-width="5"/>
+
+            <line x1="70" y1="95"
+                  x2="110" y2="95"
+                  stroke="#dd43b9"
+                  stroke-width="5"/>
+
+            <line x1="70" y1="115"
+                  x2="100" y2="115"
+                  stroke="#dd43b9"
+                  stroke-width="5"/>
+
+        </svg>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>Why Register Online?</h2>
+
+        <div class="cards">
+
+            <div class="info-card">
+                <h3>📅 Easy Scheduling</h3>
+                <p>
+                    Check the date and time of school events
+                    before registering.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>📝 Easy Registration</h3>
+                <p>
+                    Register using a simple online form.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3>📋 Organized List</h3>
+                <p>
+                    Registered students are automatically
+                    organized according to their event.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Group 2 Events Registration</p>
+
+    <a href="about.html">
+        Help & Information
+    </a>
+</footer>
+
+
+<!-- Loading animation -->
+<div id="loader">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+</div>
+
+<script src="script.js"></script>
+
+</script>
+</body>
+</html>

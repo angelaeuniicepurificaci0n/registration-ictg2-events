@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registered Students</title>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+<body>
+
+<header class="top-header">
+
+    <!-- MENU BUTTON -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <!-- LOGO -->
+    <div class="site-logo">
+        <h1>Group 2 - ICT </h1>
+        <span>SCHOOL EVENTS</span>
+    </div>
+
+    <!-- SIDE MENU -->
+
+<nav id="sideMenu" class="side-menu">
+
+    <div class="menu-title">
+        <span>MENU</span>
+
+        <button class="close-btn" onclick="toggleMenu()">
+            ×
+        </button>
+    </div>
+
+    <a href="index.html" onclick="closeMenu()">
+        🏠 HOME
+    </a>
+
+    <a href="events.html" onclick="closeMenu()">
+        🎈EVENTS
+    </a>
+
+    <a href="registered.html" onclick="closeMenu()">
+        📋 REGISTERED LIST
+    </a>
+
+    <a href="coordinators.html" onclick="closeMenu()">
+        🔎 EVENT COORDINATORS
+    </a>
+
+     <a href="about.html" onclick="closeMenu()">
+        🧷 ABOUT
+    </a>
+
+
+</nav>
+</header>
+<main class="section">
+
+    <h2>Registered Students</h2>
+
+    <p class="subtitle">
+        Students are grouped per event.
+    </p>
+
+
+    <div class="table-box">
+        <h3>SPORTS FESTIVAL</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    
+                    <th>Email</th>
+
+                    <th>Grade & Section</th>
+
+                    <th>Date Registered</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="sportsList"></tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="table-box">
+
+        <h3>COLOR FUN RUN</h3>
+
+    <table>
+ <thead>
+<tr>
+                <th>Name</th>
+
+                    <th>Email</th>
+
+                    <th>Grade & Section</th>
+
+                    <th>Date Registered</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="colorfunrunList"></tbody>
+
+        </table>
+
+    </div>
+</main>
+
+
+<footer>
+
+    <p>© 2026 ASKI School Event Registration</p>
+
+    <a href="about.html">Help & Information</a>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+function displayRegistrations() {
+
+    let registrations =
+        JSON.parse(
+            localStorage.getItem("registrations")
+        ) || [];
+
+
+    $("#sportsList").empty();
+
+    $("#colorfunrunList").empty();
+
+    registrations.forEach(function(student) {
+        let row = `
+
+            <tr>
+
+                <td>${student.name}</td>
+
+                <td>${student.email}</td>
+
+                <td>${student.section}</td>
+
+                <td>${student.dateRegistered}</td>
+
+            </tr>
+
+        `;
+
+
+        if (
+            student.event ===
+            "Sports Festival"
+        ) {
+
+            $("#sportsList").append(row);
+
+        }
+
+        if (
+            student.event ===
+            "COLOR FUN RUN"
+        ) {
+
+            $("#colorfunrunList").append(row);
+
+        }
+    });
+
+    if ($("#sportsList").children().length === 0) {
+
+        $("#sportsList").html(
+            "<tr><td colspan='4'>No registrations yet.</td></tr>"
+        );
+
+    }
+
+    if ($("#colorfunrunList").children().length === 0) {
+
+        $("#colorfunrunList").html(
+            "<tr><td colspan='4'>No registrations yet.</td></tr>"
+        );
+
+    }
+}
+
+/* jQuery slideToggle() */
+
+$(".table-box h3").click(function() {
+
+    $(this)
+        .parent()
+        .find("table")
+        .slideToggle();
+
+});
+</script>
+
+</body>
+</html>

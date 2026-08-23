@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ASKI Registration</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+<header class="top-header">
+
+    <!-- MENU BUTTON -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <!-- LOGO -->
+    <div class="site-logo">
+        <h1>Group 2 - ICT </h1>
+        <span>SCHOOL EVENTS</span>
+    </div>
+
+</header>
+
+
+<!-- SIDE MENU -->
+
+<nav id="sideMenu" class="side-menu">
+
+    <div class="menu-title">
+        <span>MENU</span>
+
+        <button class="close-btn" onclick="toggleMenu()">
+            ×
+        </button>
+    </div>
+
+    <a href="index.html" onclick="closeMenu()">
+        🏠 HOME
+    </a>
+
+    <a href="events.html" onclick="closeMenu()">
+        🎈EVENTS
+    </a>
+
+    <a href="registered.html" onclick="closeMenu()">
+        📋 REGISTERED LIST
+    </a>
+
+    <a href="coordinators.html" onclick="closeMenu()">
+        🔎 EVENT COORDINATORS
+    </a>
+
+     <a href="about.html" onclick="closeMenu()">
+        🧷 ABOUT
+    </a>
+
+
+</nav>
+
+<main class="section">
+
+    <div class="form-box">
+
+        <h2>Event Registration</h2>
+
+        <p class="subtitle">
+            Please complete all required information.
+        </p>
+
+
+        <form id="registrationForm">
+
+
+            <label for="name">
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+
+                required
+                minlength="3"
+                maxlength="50"
+
+                pattern="[A-Za-z .'-]+"
+
+                placeholder="Juan Dela Cruz">
+
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+
+                required
+                maxlength="80"
+
+                placeholder="example@email.com">
+
+
+            <label for="event">
+                Select Event
+            </label>
+
+            <select
+                id="event"
+                name="event"
+                required>
+
+                <option value="">
+                    CHOOSE EVENT
+                </option>
+
+                <option>
+                    Sports Festival
+                </option>
+
+                <option>
+                   COLOR FUN RUN
+                </option>
+
+
+            </select>
+
+
+            <label for="section">
+                Grade & Section
+            </label>
+            <input
+                type="text"
+                id="section"
+
+                required
+                minlength="2"
+                maxlength="30"
+
+                placeholder="Grade 12 - Section A">
+<br>
+            <button
+                type="submit"
+                class="btn">
+
+                Submit Registration
+                
+            </button>
+
+            <button
+                type="reset"
+                class="secondary-btn">
+
+                Clear
+
+            </button>
+
+        </form>
+
+
+        <div
+            id="message"
+            class="message">
+
+        </div>
+
+    </div>
+
+<br>
+    <!-- Canvas -->
+
+    <div class="canvas-box">
+
+        <h3>Event Signature Canvas</h3>
+
+        <p>
+            You can draw a simple signature using the canvas.
+        </p>
+
+        <canvas
+            id="signatureCanvas"
+            width="1000"
+            height="180">
+        </canvas>
+
+        <br>
+
+        <button
+            id="clearCanvas"
+            class="secondary-btn">
+
+            Clear Canvas
+
+        </button>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>© 2026 ASKI School Event Registration</p>
+
+    <a href="about.html">
+        Help & Information
+    </a>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+
+/* =========================
+   AUTO SELECT EVENT
+========================= */
+
+let params =
+    new URLSearchParams(window.location.search);
+
+let selectedEvent =
+    params.get("event");
+
+if (selectedEvent) {
+
+    document.getElementById("event").value =
+        selectedEvent;
+
+}
+
+
+/* =========================
+   FORM VALIDATION
+========================= */
+
+$("#registrationForm").on("submit", function(e) {
+
+    e.preventDefault();
+
+    let name =
+        $("#name").val().trim();
+
+    let email =
+        $("#email").val().trim();
+
+    let event =
+        $("#event").val();
+
+    let section =
+        $("#section").val().trim();
+
+
+    if (!name || !email || !event || !section) {
+
+        showError(
+            "Please complete all required information."
+        );
+
+        return;
+
+    }
+
+
+    if (name.length < 3) {
+
+        showError(
+            "Name must contain at least 3 characters."
+        );
+
+        return;
+
+    }
+
+
+    /*
+       Confirmation Dialog
+    */
+
+    let confirmRegister =
+        confirm(
+            "Are you sure you want to register for " +
+            event + "?"
+        );
+
+
+    if (!confirmRegister) {
+
+        return;
+
+    }
+
+
+    let registrations =
+        JSON.parse(
+            localStorage.getItem("registrations")
+        ) || [];
+
+
+    let student = {
+
+        name: name,
+
+        email: email,
+
+        event: event,
+
+        section: section,
+
+        dateRegistered:
+            new Date().toLocaleString()
+
+    };
+
+
+    registrations.push(student);
+
+
+    localStorage.setItem(
+        "registrations",
+        JSON.stringify(registrations)
+    );
+
+
+    showSuccess(
+        "Registration successful!"
+    );
+
+
+    this.reset();
+
+});
+
+
+/* =========================
+   SUCCESS
+========================= */
+
+function showSuccess(text) {
+
+    $("#message")
+        .hide()
+        .removeClass("error-box")
+        .addClass("success-box")
+        .html("✓ " + text)
+        .fadeIn();
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showError(text) {
+
+    $("#message")
+        .hide()
+        .removeClass("success-box")
+        .addClass("error-box")
+        .html("⚠ " + text)
+        .fadeIn();
+
+}
+/* =========================
+   SIGNATURE CANVAS
+========================= */
+
+let canvas = document.getElementById("signatureCanvas");
+let ctx = canvas.getContext("2d");
+
+let drawing = false;
+
+
+/* Canvas settings */
+
+ctx.lineWidth = 2;
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
+
+
+/* Prevent scrolling while signing */
+
+canvas.style.touchAction = "none";
+
+
+/* =========================
+   POINTER EVENTS
+========================= */
+
+canvas.addEventListener("pointerdown", startDrawing);
+canvas.addEventListener("pointermove", draw);
+canvas.addEventListener("pointerup", stopDrawing);
+canvas.addEventListener("pointercancel", stopDrawing);
+canvas.addEventListener("pointerleave", stopDrawing);
+
+
+/* =========================
+   START DRAWING
+========================= */
+
+function startDrawing(e) {
+
+    drawing = true;
+
+    canvas.setPointerCapture(e.pointerId);
+
+    let rect = canvas.getBoundingClientRect();
+
+    let x =
+        (e.clientX - rect.left) *
+        (canvas.width / rect.width);
+
+    let y =
+        (e.clientY - rect.top) *
+        (canvas.height / rect.height);
+
+    ctx.beginPath();
+
+    ctx.moveTo(x, y);
+}
+
+
+/* =========================
+   DRAW
+========================= */
+
+function draw(e) {
+
+    if (!drawing) return;
+
+    let rect = canvas.getBoundingClientRect();
+
+    let x =
+        (e.clientX - rect.left) *
+        (canvas.width / rect.width);
+
+    let y =
+        (e.clientY - rect.top) *
+        (canvas.height / rect.height);
+
+    ctx.lineTo(x, y);
+
+    ctx.stroke();
+}
+
+
+/* =========================
+   STOP DRAWING
+========================= */
+
+function stopDrawing(e) {
+
+    drawing = false;
+
+    if (e.pointerId) {
+
+        try {
+            canvas.releasePointerCapture(e.pointerId);
+        } catch (error) {
+            // Ignore if pointer capture was already released
+        }
+
+    }
+
+    ctx.closePath();
+}
+
+
+/* =========================
+   CLEAR CANVAS
+========================= */
+
+$("#clearCanvas").click(function() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+});
+
+</script>
+
+</body>
+</html>

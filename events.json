@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Sports Festival",
+        "date": "August 20, 2026",
+        "time": "8:00 AM - 4:00 PM",
+        "location": "School Gymnasium",
+        "description": "A school sports event featuring different games and activities for students.",
+        "requirements": "Sports uniform, water bottle, towel, and school ID.",
+        "image":"images/8e451632-fc12-4748-9f0a-d0bd269e73c1.jpg"
+    },
+
+    {
+        "name": "COLOR FUN RUN",
+        "date": "September 15, 2026",
+        "time": "10:00 AM - 5:00 PM",
+        "location": "School Grounds",
+        "description": "An event meant to refresh, relax, and socialize with your loved ones.",
+        "requirements": "Sports attire, water bottle, towel, and school ID.",
+        "image":"images/563cf9ad-0894-4adc-8142-c04392d9245e.jpg"
+    }
+]

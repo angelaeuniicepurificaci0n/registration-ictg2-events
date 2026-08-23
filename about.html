@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About ASKI Events</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+<header class="top-header">
+
+    <!-- MENU BUTTON -->
+    <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+    </button>
+
+    <!-- LOGO -->
+    <div class="site-logo">
+        <h1>Group 2 - ICT </h1>
+        <span>SCHOOL EVENTS</span>
+    </div>
+
+    <!-- SIDE MENU -->
+
+<nav id="sideMenu" class="side-menu">
+
+    <div class="menu-title">
+        <span>MENU</span>
+
+        <button class="close-btn" onclick="toggleMenu()">
+            ×
+        </button>
+    </div>
+
+    <a href="index.html" onclick="closeMenu()">
+        🏠 HOME
+    </a>
+
+    <a href="events.html" onclick="closeMenu()">
+        🎈EVENTS
+    </a>
+
+    <a href="registered.html" onclick="closeMenu()">
+        📋 REGISTERED LIST
+    </a>
+
+    <a href="coordinators.html" onclick="closeMenu()">
+        🔎 EVENT COORDINATORS
+    </a>
+
+     <a href="about.html" onclick="closeMenu()">
+        🧷 ABOUT
+    </a>
+
+</nav>
+
+</header>
+
+
+<main class="section">
+
+    <h2>About the Website</h2>
+
+
+    <div class="info-card">
+
+        <h3>What is the purpose of this website?</h3>
+
+        <p>
+            This website is created for school event registration
+            to make it easier for students to view and register for 
+            school activities if they are interested to participate 
+            in the said events.
+        </p>
+
+    </div>
+<br>
+
+    <div class="info-card">
+
+        <h3>How to Register</h3>
+
+        <ol>
+
+            <li>Open the Events page.</li>
+
+            <li>Choose an event.</li>
+
+            <li>Read its date, time, location, and requirements.</li>
+
+            <li>Click Register.</li>
+
+            <li>Complete the registration form.</li>
+
+            <li>Confirm your registration.</li>
+
+            <li>Check the Registered List.</li>
+
+        </ol>
+
+    </div>
+<br>
+
+    <!-- Geolocation API -->
+
+    <div class="info-card">
+
+    <h3>📍 Location Checker</h3>
+
+    <p>
+        <strong>🏫 School Location:</strong><br>
+        ASKI Skills and Knowledge Institute
+    </p>
+
+    <p id="userLocation">
+        <strong>📍 Your Location:</strong><br>
+        Click the button to check your location.
+    </p>
+
+    <p id="distance">
+        <strong>📏 Distance from School:</strong><br>
+        Not calculated yet.
+    </p>
+
+    <button id="locationButton" class="btn">
+        Check My Location
+    </button>
+
+</div>
+<br>
+
+    <div class="info-card">
+
+        <h3>Need Help?</h3>
+
+        <p>
+            For questions about school events,
+            contact the event coordinator.
+            <br>
+
+            ☎️ 0991-238-9928
+        </p>
+
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <p>© 2026 ASKI School Event Registration</p>
+
+    <a href="index.html">Back to Home</a>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+<script>
+$("#locationButton").click(function() {
+    if (!navigator.geolocation) {
+        $("#locationText").text(
+            "Geolocation is not supported by this browser."
+        );
+        return;
+    }
+    $("#locationText").text(
+        "Getting your location..."
+    );
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            $("#locationText").html(
+                "Location detected!<br>" +
+                "Latitude: " +
+                position.coords.latitude.toFixed(4) +
+                "<br>Longitude: " +
+                position.coords.longitude.toFixed(4)
+            );
+        },
+        function() {
+
+            $("#locationText").text(
+                "Unable to access your location."
+            );
+        }
+    );
+});
+</script>
+<script src="script.js"></script>
+
+</body>
+</html>
