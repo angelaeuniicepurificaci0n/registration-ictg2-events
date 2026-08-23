@@ -13,7 +13,24 @@ $(document).ready(function() {
     });
 });
 
+document.addEventListener("keydown", function(event) {
+    // Check for Ctrl + Shift + D (case-insensitive)
+    if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "d") {
+        // Prevent default browser shortcut actions
+        event.preventDefault();
 
+        if (confirm("DEVELOPER ONLY: Clear all registered student data?")) {
+            localStorage.removeItem("registrations");
+            
+            // Check if function exists on current page before calling
+            if (typeof displayRegistrations === "function") {
+                displayRegistrations();
+            }
+            
+            alert("Storage reset!");
+        }
+    }
+});
 /* =========================
    SIDE MENU CONTROLS
 ========================= */
